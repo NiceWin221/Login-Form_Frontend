@@ -1,31 +1,43 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { toast } from 'react-toastify';
 import "./register.css";
 
 const Register = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const navigate = useNavigate()
 
   const sendRegister = async (e) => {
     e.preventDefault()
     const data = {
-      username,
-      password
+      username: username,
+      password: password,
+      confirmPassword: confirmPassword
     }
+    const dataForm = JSON.stringify(data)
     try {
       const response = await fetch("http://localhost:3000/register",
         {
           method: "post",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
+          body: dataForm
         }
       )
 
-      if (!response.ok) return console.log(`HTTP error! Status: ${response.status}`)
-      const result = await response.json()
-      console.log("Registration successfull:", result)
-
+      if (!response.ok) {
+        console.log(`HTTP error! Status: ${response.status}`)
+        toast.error("Registration failed!")
+      } else {
+        const result = await response.json()
+        console.log("Registration successfull:", result)
+        toast.success("Registration success!")
+        navigate("/")
+      }
     } catch (err) {
-      console.error("Error during registration:", error);
+      console.error("Error during registration:", err);
+      toast.error("Registration failed!")
     }
   }
 
@@ -41,6 +53,7 @@ const Register = () => {
             name="name"
             id="name"
             placeholder="Enter your username"
+            value={username}
             required />
         </div>
         <div className="input-container">
@@ -51,16 +64,18 @@ const Register = () => {
             name="password"
             id="password"
             placeholder="Enter your password"
+            value={password}
             required />
         </div>
         <div className="input-container">
           <label htmlFor="confirm-password">Confirm Password</label>
           <input
-            onChange={(e) => { setUsername(e.target.value) }}
+            onChange={(e) => { setConfirmPassword(e.target.value) }}
             type="password"
             name="confirmPassword"
             id="confirmPassword"
             placeholder="Confirm your password"
+            value={confirmPassword}
             required />
         </div>
         <button type="submit">Sign Up</button>

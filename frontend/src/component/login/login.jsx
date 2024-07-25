@@ -2,15 +2,15 @@ import "./login.css"
 
 const Login = () => {
   return (
-    <div class="container">
+    <div className="container"> 
       <h1>Login</h1>
       <form action="/login" method="post">
         <div className="input-container">
-          <label for="name">Username</label>
+          <label htmlFor="name">Username</label>
           <input type="text" name="name" id="name" placeholder="Enter your name" required />
         </div>
         <div className="input-container">
-          <label for="password">Password</label>
+          <label htmlFor="password">Password</label>
           <input type="password" name="password" id="password" placeholder="Enter your password" required />
         </div>
         <button type="submit">LOGIN</button>
