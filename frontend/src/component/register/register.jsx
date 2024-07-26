@@ -78,9 +78,9 @@ const Register = () => {
             value={confirmPassword}
             required />
         </div>
-        <button type="submit">Sign Up</button>
+        <button type="submit" className="signup">Sign Up</button>
       </form>
-      <div className="login">
+      <div className="routes">
         <p>Already have an account? <a href="/">Log in</a></p>
       </div>
     </div>

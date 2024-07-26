@@ -11,6 +11,9 @@ const employeeSchema = new Schema({
     type: String,
     required: true,
   },
+  refreshToken: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("User", employeeSchema);

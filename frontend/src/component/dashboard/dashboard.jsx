@@ -1,8 +1,12 @@
 import "./dashboard.css"
+import Navbar from "../navbar/navbar"
 
 const Dashboard = () => {
   return (
-    <h1>You Have Logged In</h1>
+    <div className="dashboard-container">
+      <Navbar />
+      
+    </div>
   )
 }
 
