@@ -41,8 +41,36 @@ const login = async (req, res) => {
   foundUser.refreshToken = refreshToken;
   const result = await foundUser.save();
   console.log(result);
+  res.cookie("jwt", refreshToken, { httpOnly: true, sameSite: "none", secure: true, maxAge: 24 * 60 * 60 * 1000 });
 
-  res.json({ accessToken, refreshToken });
+  res.json({ accessToken });
 };
 
-module.exports = { register, login };
+const logOut = async (req, res) => {
+  const cookies = req.cookies;
+  if (!cookies?.jwt) return res.sendStatus(204); // no content
+  const refreshToken = cookies.jwt;
+  const foundUser = await Employee.findOne({ refreshToken }).exec();
+  if (!foundUser) {
+    res.clearCookie("jwt", { httpOnly: true, sameSite: "none", secure: true });
+    return res.sendStatus(204);
+  }
+
+  foundUser.refreshToken = "";
+  const result = await foundUser.save();
+  console.log(result);
+  res.clearCookie("jwt", { httpOnly: true, sameSite: "none", secure: true });
+  res.sendStatus(204);
+};
+
+const getUser = async (req, res) => {
+  try {
+    const user = await Employee.findOne({ username: req.user.username }).exec();
+    if (!user) return res.sendStatus(404);
+    res.json({ username: user.username });
+  } catch (err) {
+    if (err) return res.sendStatus(404);
+  }
+};
+
+module.exports = { register, login, logOut, getUser };
