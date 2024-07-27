@@ -46,7 +46,7 @@ const login = async (req, res) => {
   res.json({ accessToken });
 };
 
-const logOut = async (req, res) => {
+const logout = async (req, res) => {
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(204); // no content
   const refreshToken = cookies.jwt;
@@ -73,4 +73,4 @@ const getUser = async (req, res) => {
   }
 };
 
-module.exports = { register, login, logOut, getUser };
+module.exports = { register, login, logout, getUser };

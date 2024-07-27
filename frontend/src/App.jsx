@@ -25,7 +25,6 @@ export default function app() {
         draggable
         pauseOnHover={false}
         theme="light"
-        className="toast-container"
       />
     </BrowserRouter>
   )

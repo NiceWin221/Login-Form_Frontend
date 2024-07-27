@@ -27,9 +27,6 @@ const Login = () => {
       } else {
         const result = await response.json()
         console.log("Login successfull:", result)
-        // saving the token into the localStorage
-        localStorage.setItem("accessToken", result.accessToken)
-        localStorage.setItem("refreshToken", result.refreshToken)
         toast.success("Login success!")
         navigate("/dashboard")
       }
