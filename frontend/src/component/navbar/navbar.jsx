@@ -2,16 +2,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { jwtDecode } from "jwt-decode";
+import Cookie from "js-cookie"
 import "./navbar.css";
 
 const Navbar = () => {
   const [name, setName] = useState("");
   const [token, setToken] = useState("");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    refreshToken();
-  }, []);
 
   const refreshToken = async () => {
     try {
@@ -33,6 +30,10 @@ const Navbar = () => {
     }
   };
 
+  useEffect(() => {
+    refreshToken();
+  }, []);
+
   const logOut = async () => {
     try {
       const response = await fetch("http://localhost:3000/logOut", {
@@ -43,6 +44,7 @@ const Navbar = () => {
       if (!response.ok) {
         throw new Error("Failed to logout!")
       }
+      Cookie.set("statusLogin", "false")
       toast.success("Loggedout!")
       navigate("/")
     } catch (err) {

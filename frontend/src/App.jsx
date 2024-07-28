@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Login from "./component/login/login";
 import Register from "./component/register/register";
 import Dashboard from "./component/dashboard/dashboard";
+import ProtectedRoutes from "./utils/ProtectedRoutes";
 import "./app.css"
 
 export default function app() {
@@ -12,7 +13,9 @@ export default function app() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
       </Routes>
       <ToastContainer
         position="top-center"

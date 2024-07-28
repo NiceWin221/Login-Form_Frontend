@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { toast } from 'react-toastify';
+import Cookie from "js-cookie"
 import "./login.css"
 
 const Login = () => {
@@ -26,6 +27,7 @@ const Login = () => {
         toast.error("Login failed!")
       } else {
         const result = await response.json()
+        Cookie.set("statusLogin", "true", { expires: 7 })
         console.log("Login successfull:", result)
         toast.success("Login success!")
         navigate("/dashboard")
