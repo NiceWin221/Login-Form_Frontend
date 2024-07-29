@@ -1,6 +1,7 @@
-const Employee = require("../model/Employee");
+const User = require("../model/Users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { where } = require("sequelize");
 
 const register = async (req, res) => {
   const { username, password, confirmPassword } = req.body;
@@ -8,13 +9,17 @@ const register = async (req, res) => {
     return res.status(400).json({ message: "All fields are required." });
   }
 
-  const duplicate = await Employee.findOne({ username }).exec();
+  const duplicate = await User.findOne({
+    where: {
+      username: username,
+    },
+  });
   if (duplicate) return res.status(400).json({ message: "Username alredy exist!" });
   if (password !== confirmPassword) return res.status(400).json({ message: "Password doesn't match!" });
 
   try {
     const hashedPwd = await bcrypt.hash(password, 10);
-    const result = await Employee.create({
+    const result = await User.create({
       username: username,
       password: hashedPwd,
     });
@@ -29,7 +34,11 @@ const login = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) return res.status(400).json({ message: "Username and password are required." });
 
-  const foundUser = await Employee.findOne({ username }).exec();
+  const foundUser = await User.findOne({
+    where: {
+      username: username,
+    },
+  });
   if (!foundUser) return res.status(401).json({ message: "Invalid username or password" });
 
   const match = await bcrypt.compare(password, foundUser.password);
@@ -50,7 +59,7 @@ const logout = async (req, res) => {
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(204); // no content
   const refreshToken = cookies.jwt;
-  const foundUser = await Employee.findOne({ refreshToken }).exec();
+  const foundUser = await User.findOne({ refreshToken });
   if (!foundUser) {
     res.clearCookie("jwt", { httpOnly: true, sameSite: "none", secure: true });
     return res.sendStatus(204);
@@ -65,7 +74,7 @@ const logout = async (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    const user = await Employee.findOne({ username: req.user.username }).exec();
+    const user = await User.findOne({ username: req.user.username });
     if (!user) return res.sendStatus(404);
     res.json({ username: user.username });
   } catch (err) {

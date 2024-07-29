@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const routes = require("./routes/index");
@@ -9,7 +8,16 @@ const db = require("./config/db");
 const PORT = process.env.PORT || 3000;
 
 // Connecting to Database
-db();
+const testDatabaseConnection = async () => {
+  try {
+    await db.authenticate();
+    console.log("Database connected...");
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+};
+
+testDatabaseConnection();
 
 // Middleware
 app.use(cookieParser());
@@ -25,9 +33,6 @@ app.use(
 
 app.use(routes);
 
-mongoose.connection.once("open", () => {
-  console.log(`Connected to MongoDB`);
-  app.listen(PORT, () => {
-    console.log(`Server is listening at http://localhost:${PORT}`);
-  });
+app.listen(PORT, () => {
+  console.log(`Server is listening at http://localhost:${PORT}`);
 });

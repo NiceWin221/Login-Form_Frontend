@@ -23,3 +23,7 @@
   cursor: pointer;
   transition: 0.3s ease-in-out;
 }
+.signup:hover{
+  background-color: aquamarine;
+  color: white;
+}

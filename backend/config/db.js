@@ -1,11 +1,8 @@
-const mongoose = require("mongoose");
+const Sequelize = require("sequelize");
 
-const db = async () => {
-  try {
-    mongoose.connect(process.env.DATABASE_URI);
-  } catch (err) {
-    console.error(err);
-  }
-};
+const db = new Sequelize("myDB", "root", "Edsrcwmysql5", {
+  host: "localhost",
+  dialect: "mysql",
+});
 
 module.exports = db;
