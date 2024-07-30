@@ -4,8 +4,8 @@ const jwt = require("jsonwebtoken");
 const { where } = require("sequelize");
 
 const register = async (req, res) => {
-  const { username, password, confirmPassword } = req.body;
-  if (!username || !password || !confirmPassword) {
+  const { username, password, email } = req.body;
+  if (!username || !password || !email) {
     return res.status(400).json({ message: "All fields are required." });
   }
 
@@ -15,13 +15,13 @@ const register = async (req, res) => {
     },
   });
   if (duplicate) return res.status(400).json({ message: "Username alredy exist!" });
-  if (password !== confirmPassword) return res.status(400).json({ message: "Password doesn't match!" });
 
   try {
     const hashedPwd = await bcrypt.hash(password, 10);
     const result = await User.create({
       username: username,
       password: hashedPwd,
+      email: email,
     });
     console.log(result);
     res.status(201).json({ message: "User has been created!" });

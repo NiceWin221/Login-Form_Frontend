@@ -53,7 +53,9 @@ const Login = () => {
             id="name"
             value={username}
             placeholder="Username"
-            required />
+            required 
+            autoComplete="off"
+            />
         </div>
         <div className="input-container">
           <label htmlFor="password">

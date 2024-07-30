@@ -6,7 +6,7 @@ import "./register.css";
 const Register = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
+  const [email, setEmail] = useState("")
   const navigate = useNavigate()
 
   const sendRegister = async (e) => {
@@ -14,7 +14,7 @@ const Register = () => {
     const data = {
       username: username,
       password: password,
-      confirmPassword: confirmPassword
+      email: email
     }
     const dataForm = JSON.stringify(data)
     try {
@@ -46,42 +46,58 @@ const Register = () => {
       <h1>Sign Up</h1>
       <form action="/register" method="post" onSubmit={sendRegister} className="form">
         <div className="input-container">
-          <label htmlFor="name">Username</label>
+          <label htmlFor="name">
+            <i className="fa-solid fa-user"></i>
+          </label>
           <input
             onChange={(e) => { setUsername(e.target.value) }}
             type="text"
             name="name"
             id="name"
-            placeholder="Enter your username"
+            placeholder="Username"
             value={username}
-            required />
+            required
+            autoComplete="off"
+          />
         </div>
         <div className="input-container">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="email">
+            <i className="fa-solid fa-envelope"></i>
+          </label>
+          <input
+            onChange={(e) => { setEmail(e.target.value) }}
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Email"
+            value={email}
+            required
+            autoComplete="off"
+          />
+        </div>
+        <div className="input-container">
+          <label htmlFor="password">
+            <i className="fa-solid fa-lock"></i>
+          </label>
           <input
             onChange={(e) => { setPassword(e.target.value) }}
             type="password"
             name="password"
             id="password"
-            placeholder="Enter your password"
+            placeholder="Password"
             value={password}
             required />
         </div>
-        <div className="input-container">
-          <label htmlFor="confirm-password">Confirm Password</label>
-          <input
-            onChange={(e) => { setConfirmPassword(e.target.value) }}
-            type="password"
-            name="confirmPassword"
-            id="confirmPassword"
-            placeholder="Confirm your password"
-            value={confirmPassword}
-            required />
+        <div className="login-container" style={{ marginTop: "30px" }}>
+          <div className="button-hover">
+            <button type="submit" className="login">SIGN UP</button>
+            <span className="bg-left"></span>
+            <span className="bg-right"></span>
+          </div>
         </div>
-        <button type="submit" className="signup">Sign Up</button>
       </form>
-      <div className="routes">
-        <p>Already have an account? <a href="/">Log in</a></p>
+      <div className="register" style={{ marginTop: "5px" }}>
+        <p>Don't have an account? <a href="/">Sign in</a></p>
       </div>
     </div>
   );

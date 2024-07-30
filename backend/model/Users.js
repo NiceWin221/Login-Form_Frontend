@@ -15,6 +15,10 @@ const Users = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     refreshToken: {
       type: DataTypes.TEXT,
     },
