@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { jwtDecode } from "jwt-decode";
+import { logo } from "../../images/images"
 import Cookie from "js-cookie"
 import "./navbar.css";
 
@@ -55,8 +56,28 @@ const Navbar = () => {
 
   return (
     <nav>
-      <h1>{name}</h1>
-      <button onClick={() => { logOut() }}>Logout</button>
+      <h1>{name.charAt(0).toUpperCase()}</h1>
+      <img src={logo} alt="logo" />
+      <span>
+        <i className="fa-solid fa-house"></i>
+        <p>Home</p>
+      </span>
+      <span>
+        <i className="fa-solid fa-film"></i>
+        <p>Movies</p>
+      </span>
+      <span>
+        <i className="fa-solid fa-tv"></i>
+        TV Shows
+      </span>
+      <span>
+        <i className="fa-solid fa-plus"></i>
+        <p>Request</p>
+      </span>
+      <div>
+        <input type="text" placeholder="Search movie" />
+        <i className="fa-solid fa-magnifying-glass"></i>
+      </div>
     </nav>
   );
 };
