@@ -1,0 +1,90 @@
+.sidebar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #191c20;
+  width: 110px;
+  height: 100%;
+  padding: 80px 10px;
+}
+.sidebar div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-left: 10px;
+}
+.sidebar div div {
+  background: #25282c;
+  position: relative;
+  padding: 11px 22px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+}
+.hover {
+  position: absolute;
+  left: -75px;
+  top: 0;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+.hover p{
+  background: white;
+  color: black;
+  font-size: smaller;
+  font-weight: bolder;
+  padding: 3px 20px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+.hover i{
+  position: relative;
+  left: 2px;
+}
+.fire {
+  color: #ff4d4f;
+}
+.fire:hover{
+  color: white;
+  background: #ff4d4f;
+}
+.fire span{
+  top: 6px;
+}
+.thumb {
+  color: #0be881;
+}
+.thumb:hover{
+  color: white;
+  background: #0be881;
+}
+.thumb span{
+  top: 6px;
+}
+.gift{
+  color: #1890ff;
+}
+.gift:hover{
+  color: white;
+  background: #1890ff;
+}
+.trophy{
+  color: #ffcf00;
+}
+.trophy:hover{
+  color: white;
+  background: #ffcf00;
+}
+.trophy span{
+  top: 6px;
+}
+.clock{
+  color: #41464b;
+}
+.clock:hover{
+  color: white;
+  background: #41464b;
+}
