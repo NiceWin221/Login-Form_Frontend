@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { jwtDecode } from "jwt-decode";
 import { logo } from "../../images/images"
+import axios from "axios"
 import Cookie from "js-cookie"
 import "./navbar.css";
 
@@ -13,17 +14,16 @@ const Navbar = () => {
 
   const refreshToken = async () => {
     try {
-      const response = await fetch("http://localhost:3000/token", {
-        method: "GET",
-        credentials: "include"
-      });
+      // const response = await fetch("http://localhost:3000/token", {
+      //   method: "GET",
+      //   credentials: "include"
+      // });
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch refrehToken");
-      }
-      const result = await response.json();
-      setToken(result.accessToken)
-      const decode = jwtDecode(result.accessToken);
+      const response = await axios.get("http://localhost:3000/token", {
+        withCredentials: "include"
+      })
+      setToken(response.data.accessToken)
+      const decode = jwtDecode(response.data.accessToken);
       setName(decode.username);
 
     } catch (err) {

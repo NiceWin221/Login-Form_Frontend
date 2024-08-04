@@ -3,7 +3,7 @@
   left: 0;
   top: 0;
   background: #191c20;
-  width: 110px;
+  width: 100px;
   height: 100%;
   padding: 80px 10px;
 }
@@ -11,7 +11,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 .sidebar div div {
   background: #25282c;

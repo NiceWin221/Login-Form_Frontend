@@ -1,1 +1,116 @@
+.dashboard-headers {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 100px;
+  margin-top: 90px;
+  padding: 0 15px;
+}
+.dashboard-headers span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+.dashboard-headers span i {
+  color: #0be881;
+  font-size: 27px;
+}
+.dashboard-headers span h1 {
+  color: white;
+  font-weight: 400;
+  font-size: 27px;
+}
+.dashboard-headers div {
+  display: flex;
+}
+.dashboard-headers div span {
+  display: flex;
+  gap: 3px;
+  cursor: pointer;
+  padding: 0 30px;
+  border-radius: 30px;
+}
+.dashboard-headers div span i {
+  color: white;
+  font-size: 15px;
+}
+.dashboard-headers div span h1 {
+  font-size: 17px;
+}
+.active-tab {
+  background: #3c4046;
+}
 
+/*--- Movies API ---*/
+
+.random-movies-container {
+  margin-top: 25px;
+  margin-left: 100px;
+  width: 1275px;
+  height: 615px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.movie-card {
+  width: 200px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  position: relative;
+}
+.movie-details {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.8) 0%,
+    /* Start with a transparent color (light) at the top */ rgba(0, 0, 0, 0.6) 45%,
+    /* Keep the same color for the top 45% */ rgba(0, 0, 0, 0.8) 50%,
+    /* Transition to a darker color (50% is the middle) */ rgba(0, 0, 0, 0.6) 55%,
+    /* Continue with the same color for the next 5% */ rgba(0, 0, 0, 0.6) 100% /* End with the same transparent color at the bottom */
+  );
+  color: white;
+  opacity: 0;
+  transition: 0.3s ease-out;
+  text-align: center;
+  padding: 0 15px;
+  flex-wrap: wrap;
+}
+.movie-details-icon {
+  display: flex;
+  gap: 5px;
+}
+.movie-details-icon span {
+  background: rgba(99, 84, 90, 0.5);
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: white;
+  transition: 0.2s ease-in-out;
+}
+.movie-details-icon span:hover{
+  background: rgba(99, 84, 90, 0.8);
+}
+.movie-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 5px solid #111417;
+  transition: 0.3s ease-out;
+}
+.movie-card:hover .movie-details {
+  opacity: 1;
+}
+.movie-card:hover img {
+  border: none;
+  transform: scale(1.1);
+  filter: blur(2px);
+}
