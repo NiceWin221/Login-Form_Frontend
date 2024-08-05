@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react"
+import { Navigate, useNavigate } from "react-router-dom"
 import { getRandomMovies } from "../../services/omdbService"
-import Navbar from "../navbar/navbar"
-import Sidebar from "../sidebar/sidebar"
 import "./dashboard.css"
 
 const Dashboard = () => {
   const [movies, setMovies] = useState([])
   const [active, setActive] = useState(1)
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
       const randomMovies = await getRandomMovies()
-      console.log(randomMovies)
       setMovies(randomMovies)
     }
     fetchData()
   }, [])
+
+  const handleMoviePlay = (movie) => {
+    navigate(`/moviePlay/${movie.imdbID}`)
+  }
 
   return (
     <div className="dashboard-container">
@@ -45,7 +48,7 @@ const Dashboard = () => {
                 <span>
                   <i className="fa-solid fa-download"></i>
                 </span>
-                <span>
+                <span onClick={() => {handleMoviePlay(movie)}}>
                   <i className="fa-solid fa-play"></i>
                 </span>
                 <span>
@@ -56,8 +59,6 @@ const Dashboard = () => {
           </div>
         ))}
       </div>
-      <Sidebar />
-      <Navbar />
     </div>
   )
 }

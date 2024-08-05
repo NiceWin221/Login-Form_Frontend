@@ -1,8 +1,14 @@
+.login-parent{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 .container {
   width: 400px;
   height: 500px;
   padding: 35px 20px;
-  background-color: #333333;
+  background-color: #111417;
   border-radius: 5px;
   box-shadow: 0 10px 15px 5px #1b1b1b;
 }
@@ -38,7 +44,7 @@ form {
   border-radius: 15px;
   padding-left: 15px;
   color: #929498;
-  background: #333333;
+  background: transparent;
   border: none;
 }
 form a {

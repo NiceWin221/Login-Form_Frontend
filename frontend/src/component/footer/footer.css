@@ -1,0 +1,23 @@
+.footer{
+  background: #111417;
+  margin-top: 50px;
+  padding: 25px 150px 20px 230px;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: center;
+  font-size: 13px;
+}
+.more-info{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-top: 15px;
+  cursor: pointer;
+}
+.footer h1{
+  color: white;
+  font-size: 15px;
+  font-weight: 400;
+  margin-top: 25px;
+}

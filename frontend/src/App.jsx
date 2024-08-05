@@ -5,6 +5,7 @@ import Login from "./component/login/login";
 import Register from "./component/register/register";
 import Dashboard from "./component/dashboard/dashboard";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
+import MoviePlay from "./routes/moviePlay/moviePlay"
 import "./app.css"
 
 export default function app() {
@@ -15,6 +16,7 @@ export default function app() {
         <Route path="/register" element={<Register />} />
         <Route element={<ProtectedRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="moviePlay/:movieId" element={<MoviePlay />} />
         </Route>
       </Routes>
       <ToastContainer

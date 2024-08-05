@@ -1,11 +1,12 @@
 .sidebar {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   background: #191c20;
   width: 100px;
-  height: 100%;
+  height: 100vh;
   padding: 80px 10px;
+  z-index: 10;
 }
 .sidebar div {
   display: flex;

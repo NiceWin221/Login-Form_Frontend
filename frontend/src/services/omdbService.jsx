@@ -14,6 +14,16 @@ const fetchMovies = async (query, page) => {
   }
 };
 
+// Get movies details
+export const fetchMoviesDetails = async (imdbId) => {
+  try {
+    const response = await axios.get(`${BASE_URL}&i=${imdbId}`)
+    return response.data
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 // Get a random selection of movies
 export const getRandomMovies = async () => {
   try {
@@ -36,8 +46,8 @@ export const getRandomMovies = async () => {
 
     // Fetch detailed information for each movie
     const movieDetailsPromises = randomMovies.map(async (movie) => {
-      const movieResponse = await fetch(`${BASE_URL}&i=${movie.imdbID}`);
-      return movieResponse.json();
+      const movieResponse = await axios.get(`${BASE_URL}&i=${movie.imdbID}`);
+      return movieResponse.data
     });
 
     const moviesDetails = await Promise.all(movieDetailsPromises);

@@ -42,62 +42,64 @@ const Register = () => {
   }
 
   return (
-    <div className="container">
-      <h1>Sign Up</h1>
-      <form action="/register" method="post" onSubmit={sendRegister} className="form">
-        <div className="input-container">
-          <label htmlFor="name">
-            <i className="fa-solid fa-user"></i>
-          </label>
-          <input
-            onChange={(e) => { setUsername(e.target.value) }}
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Username"
-            value={username}
-            required
-            autoComplete="off"
-          />
-        </div>
-        <div className="input-container">
-          <label htmlFor="email">
-            <i className="fa-solid fa-envelope"></i>
-          </label>
-          <input
-            onChange={(e) => { setEmail(e.target.value) }}
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Email"
-            value={email}
-            required
-            autoComplete="off"
-          />
-        </div>
-        <div className="input-container">
-          <label htmlFor="password">
-            <i className="fa-solid fa-lock"></i>
-          </label>
-          <input
-            onChange={(e) => { setPassword(e.target.value) }}
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Password"
-            value={password}
-            required />
-        </div>
-        <div className="login-container" style={{ marginTop: "30px" }}>
-          <div className="button-hover">
-            <button type="submit" className="login">SIGN UP</button>
-            <span className="bg-left"></span>
-            <span className="bg-right"></span>
+    <div className="login-parent">
+      <div className="container">
+        <h1>Sign Up</h1>
+        <form action="/register" method="post" onSubmit={sendRegister} className="form">
+          <div className="input-container">
+            <label htmlFor="name">
+              <i className="fa-solid fa-user"></i>
+            </label>
+            <input
+              onChange={(e) => { setUsername(e.target.value) }}
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Username"
+              value={username}
+              required
+              autoComplete="off"
+            />
           </div>
+          <div className="input-container">
+            <label htmlFor="email">
+              <i className="fa-solid fa-envelope"></i>
+            </label>
+            <input
+              onChange={(e) => { setEmail(e.target.value) }}
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              value={email}
+              required
+              autoComplete="off"
+            />
+          </div>
+          <div className="input-container">
+            <label htmlFor="password">
+              <i className="fa-solid fa-lock"></i>
+            </label>
+            <input
+              onChange={(e) => { setPassword(e.target.value) }}
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              value={password}
+              required />
+          </div>
+          <div className="login-container" style={{ marginTop: "30px" }}>
+            <div className="button-hover">
+              <button type="submit" className="login">SIGN UP</button>
+              <span className="bg-left"></span>
+              <span className="bg-right"></span>
+            </div>
+          </div>
+        </form>
+        <div className="register" style={{ marginTop: "5px" }}>
+          <p>Don't have an account? <a href="/">Sign in</a></p>
         </div>
-      </form>
-      <div className="register" style={{ marginTop: "5px" }}>
-        <p>Don't have an account? <a href="/">Sign in</a></p>
       </div>
     </div>
   );

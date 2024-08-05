@@ -5,9 +5,5 @@
   font-family: "Open Sans", sans-serif;
 }
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
   background-color: #25282c;
 }

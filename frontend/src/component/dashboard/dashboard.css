@@ -1,9 +1,8 @@
 .dashboard-headers {
   display: flex;
   justify-content: space-between;
-  margin-left: 100px;
-  margin-top: 90px;
   padding: 0 15px;
+  margin-bottom: 25px;
 }
 .dashboard-headers span {
   display: flex;
@@ -44,8 +43,6 @@
 /*--- Movies API ---*/
 
 .random-movies-container {
-  margin-top: 25px;
-  margin-left: 100px;
   width: 1275px;
   height: 615px;
   display: flex;
@@ -63,6 +60,7 @@
 }
 .movie-details {
   position: absolute;
+  flex-direction: column;
   top: 0;
   left: 0;
   width: 100%;

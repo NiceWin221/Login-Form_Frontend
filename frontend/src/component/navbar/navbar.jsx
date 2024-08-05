@@ -58,7 +58,7 @@ const Navbar = () => {
     <nav>
       <h1>{name.charAt(0).toUpperCase()}</h1>
       <img src={logo} alt="logo" />
-      <span>
+      <span onClick={() => { navigate("/dashboard") }}>
         <i className="fa-solid fa-house"></i>
         <p>Home</p>
       </span>

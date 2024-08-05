@@ -1,0 +1,137 @@
+.movie-play-container {
+  display: flex;
+  width: 100%;
+  height: auto;
+  gap: 30px;
+  margin-top: 10px;
+  margin-left: 30px;
+}
+.movie-play {
+  color: white;
+}
+.movie-play h1 {
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+.movie-play-headers {
+  display: flex;
+  justify-content: space-between;
+  background: #111417;
+  padding: 7px 10px;
+  align-items: center;
+}
+.movie-play-headers h1 {
+  font-size: 17px;
+  font-weight: 350;
+  margin-bottom: 0;
+}
+.movie-play-headers span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  background: #25282c;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.movie-play-body {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+.movie-play-body img {
+  width: 100%;
+  height: 100%;
+  filter: blur(10px);
+  opacity: 0.5;
+}
+.movie-play-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 10px;
+  background: #1a1e22;
+}
+.movie-play-footer p span {
+  padding: 0;
+}
+.movie-play-footer span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  background: #25282c;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.overview {
+  width: 800px;
+  background: #1a1e22;
+  margin-top: 20px;
+  border-radius: 5px;
+  padding: 25px 15px;
+}
+.overview h1 {
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+.overview p {
+  color: rgba(255, 255, 255, 0.7);
+}
+.vip {
+  width: 800px;
+  padding: 25px 15px;
+  background: #1a1e22;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+.movie-play-poster{
+  margin-top: 65px;
+}
+.movie-poster{
+  width: 250px;
+  height: auto;
+  border: 5px solid #1a1e22;
+  background: #1a1e22;
+  border-radius: 5px;
+}
+.movie-poster img{
+  width: 100%;
+  height: 100%;
+}
+.movie-poster span{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 7px 10px;
+}
+.movie-poster h1{
+  font-size: 15px;
+  font-weight: 400;
+}
+.movie-poster p{
+  border: 1px solid white;
+  padding: 1px 12px;
+  border-radius: 5px;
+  font-size: 13px;
+}
+.bookmark-movie{
+  margin-top: 10px;
+  width: 100%;
+  background: #ffffff0d;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  color: rgba(255, 255, 255, 0.8);
+  gap: 5px;
+  cursor: pointer;
+}
+.bookmark-movie i{
+  margin-top: 2px;
+}
+.bookmark-movie p{
+  font-weight: 500;
+}
