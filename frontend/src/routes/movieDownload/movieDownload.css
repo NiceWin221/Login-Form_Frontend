@@ -1,30 +1,82 @@
-.movie-download{
+.movie-download {
   margin-top: 25px;
   margin-left: 30px;
   display: flex;
   gap: 60px;
 }
-.watch-online{
-  margin-top: 10px;
+.movie-download-poster {
+  width: 250px;
+  border: 5px solid #1a1e22;
+  background: #1a1e22;
+  color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+}
+.movie-download-poster img {
   width: 100%;
+}
+.movie-download-poster span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 15px;
+}
+.movie-download-poster h1 {
+  font-weight: 400;
+  font-size: 17px;
+}
+.movie-download-poster p {
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  padding: 0 10px;
+  border-radius: 5px;
+}
+.movie-download-online {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
   background: #ffcf00;
-  padding: 5px;
+  padding: 6px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.movie-download-online:hover {
+  background: #ffe263;
+}
+.movie-download-details {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 300;
+  font-size: 14px;
+}
+.movie-download-details p {
+  margin-top: 10px;
+}
+.movie-download-details span {
+  color: #1890ff;
+}
+.movie-download-storyline{
+  color: rgba(255, 255, 255, 0.8);
+  width: 800px;
+}
+.movie-download-storyline h1{
+  font-weight: 500;
+}
+.movie-download-storyline div{
+  margin-top: 20px;
+  background: #1a1e22;
+  padding: 20px 30px;
+  border-radius: 5px;
+}
+.movie-download-storyline div h1{
+  font-size: 25px;
+}
+.movie-download-storyline div p{
+  margin-top: 20px;
+  color: rgba(255, 255, 255, 0.7);
+}
+.movie-download-link{
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px;
-  color: black;
-  gap: 5px;
-  cursor: pointer;
-}
-.movie-download-details{
-  color: rgba(255, 255, 255, 0.9);
-  width: 800px;
-}
-.movie-download-details h1{
-  font-weight: 400;
-}
-.movie-download-details span{
-  width: 800px;
-  background: white;
 }

@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchMoviesDetails } from "../../services/omdbService";
 import "./moviePlay.css"
@@ -7,6 +7,11 @@ const MoviePlay = () => {
   const { movieId } = useParams()
   const [active, setActive] = useState(false)
   const [movieDetails, setMovieDetails] = useState(null)
+  const navigate = useNavigate()
+
+  const handleMovieDownload = (movie) => {
+    navigate(`/movieDownload/${movie.imdbID}`)
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,7 +42,7 @@ const MoviePlay = () => {
                 </div>
                 <div className="movie-play-footer">
                   <p>Active: <span style={{ color: '#1890ff', display: 'inline', background: "none" }}>{movieDetails.imdbID}</span></p>
-                  <span>
+                  <span onClick={() => { handleMovieDownload(movieDetails) }}>
                     <i className="fa-solid fa-download"></i>
                     <p>Download</p>
                   </span>

@@ -63,6 +63,7 @@
   background: #25282c;
   padding: 5px 10px;
   border-radius: 5px;
+  cursor: pointer;
 }
 .overview {
   width: 800px;
@@ -168,3 +169,4 @@
 .details-movie span{
   color: #1890ff;
 }
+
