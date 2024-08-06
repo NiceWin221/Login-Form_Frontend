@@ -5,7 +5,9 @@ import "./moviePlay.css"
 
 const MoviePlay = () => {
   const { movieId } = useParams()
+  const [active, setActive] = useState(false)
   const [movieDetails, setMovieDetails] = useState(null)
+
   useEffect(() => {
     const fetchData = async () => {
       const details = await fetchMoviesDetails(movieId)
@@ -57,15 +59,16 @@ const MoviePlay = () => {
                   <p>HD</p>
                 </span>
               </div>
-              <div className="bookmark-movie">
+              <div className={`bookmark-movie ${active ? "active" : ""}`} onClick={() => { setActive(!active) }}>
                 <i className="fa-regular fa-bookmark"></i>
                 <p>Bookmark</p>
               </div>
               <div className="details-movie">
-                <p>IMDB Rate: <span style={{ color: '#1890ff', display: 'inline' }}>{movieDetails.imdbRating}</span></p>
+                <p>IMDB Rate: <span>{movieDetails.imdbRating}</span></p>
                 <p>Genres: <span>{movieDetails.Genre}</span></p>
                 <p>Year: <span>{movieDetails.Year}</span></p>
-                <p></p>
+                <p>Language: <span>{movieDetails.Language}</span></p>
+                <p>Run Time: <span>{movieDetails.Runtime}</span></p>
               </div>
             </div>
           </div >

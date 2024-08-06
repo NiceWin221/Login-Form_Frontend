@@ -35,6 +35,9 @@ nav span {
   gap: 10px;
   cursor: pointer;
 }
+nav span.active{
+  color: #1890ff;
+}
 nav span:hover {
   color: #1890ff;
 }

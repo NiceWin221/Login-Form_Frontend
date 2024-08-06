@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { jwtDecode } from "jwt-decode";
 import { logo } from "../../images/images"
@@ -8,17 +8,14 @@ import Cookie from "js-cookie"
 import "./navbar.css";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const location = useLocation()
   const [name, setName] = useState("");
   const [token, setToken] = useState("");
-  const navigate = useNavigate();
+  const currentPath = location.pathname
 
   const refreshToken = async () => {
     try {
-      // const response = await fetch("http://localhost:3000/token", {
-      //   method: "GET",
-      //   credentials: "include"
-      // });
-
       const response = await axios.get("http://localhost:3000/token", {
         withCredentials: "include"
       })
@@ -35,30 +32,30 @@ const Navbar = () => {
     refreshToken();
   }, []);
 
-  const logOut = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/logOut", {
-        method: "DELETE",
-        credentials: "include"
-      })
+  // const logOut = async () => {
+  //   try {
+  //     const response = await fetch("http://localhost:3000/logOut", {
+  //       method: "DELETE",
+  //       credentials: "include"
+  //     })
 
-      if (!response.ok) {
-        throw new Error("Failed to logout!")
-      }
-      Cookie.set("statusLogin", "false")
-      toast.success("Loggedout!")
-      navigate("/")
-    } catch (err) {
-      console.error(err)
-      toast.error("Logout failed!")
-    }
-  }
+  //     if (!response.ok) {
+  //       throw new Error("Failed to logout!")
+  //     }
+  //     Cookie.set("statusLogin", "false")
+  //     toast.success("Loggedout!")
+  //     navigate("/")
+  //   } catch (err) {
+  //     console.error(err)
+  //     toast.error("Logout failed!")
+  //   }
+  // }
 
   return (
     <nav>
       <h1>{name.charAt(0).toUpperCase()}</h1>
       <img src={logo} alt="logo" />
-      <span onClick={() => { navigate("/dashboard") }}>
+      <span onClick={() => { navigate("/dashboard") }} className={currentPath === "/dashboard" ? "active" : ""}>
         <i className="fa-solid fa-house"></i>
         <p>Home</p>
       </span>
@@ -71,8 +68,8 @@ const Navbar = () => {
         TV Shows
       </span>
       <span>
-        <i className="fa-solid fa-plus"></i>
-        <p>Request</p>
+        <i className="fa-regular fa-bookmark"></i>
+        <p>Bookmark</p>
       </span>
       <div>
         <input type="text" placeholder="Search movie" />

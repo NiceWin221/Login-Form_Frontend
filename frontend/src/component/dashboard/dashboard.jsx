@@ -20,6 +20,10 @@ const Dashboard = () => {
     navigate(`/moviePlay/${movie.imdbID}`)
   }
 
+  const handleMovieDownload = (movie) => {
+    navigate(`/movieDownload/${movie.imdbID}`)
+  }
+
   return (
     <div className="dashboard-container">
       <div className="dashboard-headers">
@@ -45,10 +49,10 @@ const Dashboard = () => {
             <div className="movie-details">
               <p>{movie.Title}</p>
               <div className="movie-details-icon">
-                <span>
+                <span onClick={() => { handleMovieDownload(movie) }}>
                   <i className="fa-solid fa-download"></i>
                 </span>
-                <span onClick={() => {handleMoviePlay(movie)}}>
+                <span onClick={() => { handleMoviePlay(movie) }}>
                   <i className="fa-solid fa-play"></i>
                 </span>
                 <span>

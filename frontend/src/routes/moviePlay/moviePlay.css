@@ -129,9 +129,42 @@
   gap: 5px;
   cursor: pointer;
 }
+
+/* Bookmark Animated */
+@keyframes pulse{
+  0%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.1);
+  }
+  100%{
+    transform: scale(1);
+  }
+}
+
+.bookmark-movie.active{
+  background: #ffcf00;
+  color: black;
+  animation: pulse 0.3s ease;
+}
 .bookmark-movie i{
   margin-top: 2px;
 }
 .bookmark-movie p{
   font-weight: 500;
+}
+.details-movie{
+  width: 100%;
+  font-size: 13px;
+  font-weight: 350;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 5px;
+  padding-top: 1px;
+}
+.details-movie p{
+  margin-top: 10px;
+}
+.details-movie span{
+  color: #1890ff;
 }
