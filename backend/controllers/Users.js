@@ -1,7 +1,6 @@
 const User = require("../model/Users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { where } = require("sequelize");
 
 const register = async (req, res) => {
   const { username, password, email } = req.body;

@@ -1,16 +1,52 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchMoviesDetails } from "../../services/omdbService";
+import axios from "axios";
 import "./moviePlay.css"
 
 const MoviePlay = () => {
   const { movieId } = useParams()
   const [active, setActive] = useState(false)
   const [movieDetails, setMovieDetails] = useState(null)
+  const [saveMovie, setSaveMovie] = useState('')
   const navigate = useNavigate()
 
   const handleMovieDownload = (movie) => {
     navigate(`/movieDownload/${movie.imdbID}`)
+  }
+
+  const handleSaveMovie = async (movie) => {
+    setActive(!active)
+    if (!active) {
+      const data = {
+        imdbID: movie.imdbID,
+        title: movie.Title,
+        poster: movie.Poster,
+        plot: movie.Plot,
+        director: movie.Director,
+        writer: movie.Writer
+      }
+
+      const dataForm = JSON.stringify(data)
+      try {
+        const response = await fetch('http://localhost:3000/saveMovie', {
+          method: "post",
+          headers: { "Content-Type": "application/json" },
+          body: dataForm
+        })
+
+        if (!response.ok) {
+          throw new Error("Failed to save movie")
+        } else {
+          const result = await response.json()
+          console.log("Movie Saved", result)
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    } else {
+      console.log("Movie removed from bookmark!")
+    }
   }
 
   useEffect(() => {
@@ -64,7 +100,7 @@ const MoviePlay = () => {
                   <p>HD</p>
                 </span>
               </div>
-              <div className={`bookmark-movie ${active ? "active" : ""}`} onClick={() => { setActive(!active) }}>
+              <div className={`bookmark-movie ${active ? "active" : ""}`} onClick={() => { handleSaveMovie(movieDetails) }}>
                 <i className="fa-regular fa-bookmark"></i>
                 <p>Bookmark</p>
               </div>
