@@ -5,14 +5,14 @@ import "./layout.css"
 
 const Layout = ({ children }) => {
   return (
-    <div>
+    <>
       <Sidebar />
       <Navbar />
       <div className="layout">
         {children}
       </div>
       <Footer />
-    </div>
+    </>
   )
 }
 

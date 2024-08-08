@@ -24,4 +24,25 @@ const saveMovie = async (req, res) => {
   }
 };
 
-module.exports = saveMovie;
+const getSavedMovie = async (req, res) => {
+  try {
+    const savedMovie = await Bookmark.findAll();
+    if (savedMovie.length === 0) {
+      return res.status(404).json({ message: "No saved movies!" });
+    }
+    const movies = savedMovie.map((movie) => ({
+      imdbID: movie.imdbID,
+      title: movie.title,
+      poster: movie.poster,
+      plot: movie.plot,
+      director: movie.director,
+      actor: movie.actor,
+    }));
+    res.json({ movies });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+module.exports = { saveMovie, getSavedMovie };

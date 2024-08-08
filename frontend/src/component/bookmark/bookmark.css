@@ -1,0 +1,24 @@
+.bookmark-headers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 0 20px;
+}
+.bookmark-headers i {
+  font-size: 24px;
+  color: #ffcf00;
+}
+.bookmark-headers h1 {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  font-size: 26px;
+}
+.bookmark-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 20px;
+}

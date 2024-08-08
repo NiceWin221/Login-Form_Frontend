@@ -28,6 +28,10 @@ const Navbar = () => {
     }
   };
 
+  const handleMovieSaved = (name) => {
+    navigate(`/movieSaved/${name}`)
+  }
+
   useEffect(() => {
     refreshToken();
   }, []);
@@ -67,8 +71,8 @@ const Navbar = () => {
         <i className="fa-solid fa-tv"></i>
         TV Shows
       </span>
-      <span>
-        <i className="fa-regular fa-bookmark"></i>
+      <span onClick={() => { handleMovieSaved(name) }} className={currentPath === `/movieSaved/${name}` ? "active" : ""}>
+        {currentPath === `/movieSaved/${name}` ? (<i className="fa-solid fa-bookmark"></i>) : (<i className="fa-regular fa-bookmark"></i>)}
         <p>Bookmark</p>
       </span>
       <div>
