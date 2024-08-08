@@ -8,7 +8,9 @@ const MoviePlay = () => {
   const { movieId } = useParams()
   const [active, setActive] = useState(false)
   const [movieDetails, setMovieDetails] = useState(null)
-  const [saveMovie, setSaveMovie] = useState('')
+  const [name, setName] = useState()
+  const [saveMovie, setSaveMovie] = useState("")
+  const [token, setToken] = useState("")
   const navigate = useNavigate()
 
   const handleMovieDownload = (movie) => {
@@ -29,9 +31,15 @@ const MoviePlay = () => {
 
       const dataForm = JSON.stringify(data)
       try {
+        const responseToken = await axios.get("http://localhost:3000/token", {
+          withCredentials: "include"
+        })
         const response = await fetch('http://localhost:3000/saveMovie', {
           method: "post",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Authorization": `Bearer ${responseToken.data.accessToken}`,
+            "Content-Type": "application/json"
+          },
           body: dataForm
         })
 

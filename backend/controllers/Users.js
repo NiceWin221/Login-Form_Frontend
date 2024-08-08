@@ -44,8 +44,8 @@ const login = async (req, res) => {
   if (!match) return res.status(401).json({ message: "Invalid username or password" });
 
   // JWT
-  const accessToken = jwt.sign({ username: foundUser.username }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "30s" });
-  const refreshToken = jwt.sign({ username: foundUser.username }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "1d" });
+  const accessToken = jwt.sign({ username: foundUser.username, id: foundUser.id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "30s" });
+  const refreshToken = jwt.sign({ username: foundUser.username, id: foundUser.id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: "1d" });
   foundUser.refreshToken = refreshToken;
   const result = await foundUser.save();
   console.log(result);

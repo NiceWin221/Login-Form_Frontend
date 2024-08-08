@@ -10,12 +10,14 @@ const saveMovie = async (req, res) => {
       plot: plot,
       director: director,
       actor: actor,
+      userID: req.user.id,
     });
     res.status(201).json({
       success: true,
       message: "Movie saved successfully",
       data: newBookmark,
     });
+    console.log(newBookmark);
   } catch (err) {
     console.error("Error saving movie:", err); // Log the error for debugging
 
@@ -26,7 +28,7 @@ const saveMovie = async (req, res) => {
 
 const getSavedMovie = async (req, res) => {
   try {
-    const savedMovie = await Bookmark.findAll();
+    const savedMovie = await Bookmark.findAll({ where: { userID: req.user.id } });
     if (savedMovie.length === 0) {
       return res.status(404).json({ message: "No saved movies!" });
     }

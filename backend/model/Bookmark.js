@@ -27,6 +27,9 @@ const Bookmark = db.define(
     actor: {
       type: DataTypes.STRING,
     },
+    userID: {
+      type: DataTypes.STRING,
+    },
   },
   {
     freezeTableName: true,

@@ -11,7 +11,7 @@ routes.post("/login", login);
 routes.get("/token", refreshToken);
 routes.get("/getUser", authenticateToken, getUser);
 routes.delete("/logout", logout);
-routes.post("/saveMovie", saveMovie);
-routes.get("/getSavedMovie", getSavedMovie);
+routes.post("/saveMovie", authenticateToken, saveMovie);
+routes.get("/getSavedMovie", authenticateToken, getSavedMovie);
 
 module.exports = routes;

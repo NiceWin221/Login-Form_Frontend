@@ -18,8 +18,14 @@ const Bookmark = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const responseToken = await axios.get("http://localhost:3000/token", {
+          withCredentials: "include"
+        })
         const response = await axios.get("http://localhost:3000/getSavedMovie", {
           withCredentials: true,
+          headers: {
+            "Authorization": `Bearer ${responseToken.data.accessToken}`,
+          }
         });
         if (response.data && Array.isArray(response.data.movies)) {
           setBookmark(response.data.movies);
