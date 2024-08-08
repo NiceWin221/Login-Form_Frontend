@@ -5,6 +5,7 @@ import "./bookmark.css";
 
 const Bookmark = () => {
   const [bookmark, setBookmark] = useState([]);
+  const [message, setMessage] = useState('')
   const navigate = useNavigate();
 
   const handleMoviePlay = (movie) => {
@@ -22,15 +23,18 @@ const Bookmark = () => {
           withCredentials: "include"
         })
         const response = await axios.get("http://localhost:3000/getSavedMovie", {
-          withCredentials: true,
+          withCredentials: "include",
           headers: {
             "Authorization": `Bearer ${responseToken.data.accessToken}`,
           }
         });
-        if (response.data && Array.isArray(response.data.movies)) {
-          setBookmark(response.data.movies);
+        if (response.data.message) {
+          setMessage("No movies saved!")
+          setBookmark([])
         } else {
-          console.error("Response data is not an array", response.data);
+          console.log(response)
+          setBookmark(response.data.movies)
+          setMessage('')
         }
       } catch (err) {
         console.error(err);
@@ -46,25 +50,29 @@ const Bookmark = () => {
         <h1>Bookmark</h1>
       </span>
       <div className="bookmark-container">
-        {bookmark && bookmark.map((movie) => (
-          <div className="movie-card" key={movie.imdbID}>
-            <img src={movie.poster} alt={movie.title} />
-            <div className="movie-details">
-              <p>{movie.title}</p>
-              <div className="movie-details-icon">
-                <span onClick={() => handleMovieDownload(movie)}>
-                  <i className="fa-solid fa-download"></i>
-                </span>
-                <span onClick={() => handleMoviePlay(movie)}>
-                  <i className="fa-solid fa-play"></i>
-                </span>
-                <span>
-                  <i className="fa-solid fa-code"></i>
-                </span>
+        {message ?
+          (<p className="saved-movie-message">{message}</p>)
+          :
+          (bookmark && bookmark.map((movie) => (
+            <div className="movie-card" key={movie.imdbID}>
+              <img src={movie.poster} alt={movie.title} />
+              <div className="movie-details">
+                <p>{movie.title}</p>
+                <div className="movie-details-icon">
+                  <span onClick={() => handleMovieDownload(movie)}>
+                    <i className="fa-solid fa-download"></i>
+                  </span>
+                  <span onClick={() => handleMoviePlay(movie)}>
+                    <i className="fa-solid fa-play"></i>
+                  </span>
+                  <span>
+                    <i className="fa-solid fa-code"></i>
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+          )}
       </div>
     </>
   );

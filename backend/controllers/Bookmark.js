@@ -26,11 +26,47 @@ const saveMovie = async (req, res) => {
   }
 };
 
+const unsaveMovie = async (req, res) => {
+  try {
+    const { imdbID } = req.body;
+    if (!imdbID) {
+      return res.status(404).json({ message: "IMDB id is required!" });
+    }
+
+    const result = await Bookmark.destroy({ where: { imdbID: imdbID, userID: req.user.id } });
+    console.log(result)
+    if (result.length === 0) {
+      return res.status(200).json({ message: "Movie not found in bookmark" });
+    }
+    res.status(200).json({ message: "Movie removed from bookmarks" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "An error occurred while removing the movie" });
+  }
+};
+
+const checkSavedMovie = async (req, res) => {
+  try {
+    const { imdbID } = req.querry;
+    if (!imdbID) {
+      return res.status(400).json({ message: "IMDB ID is required" });
+    }
+
+    const savedMovie = await Bookmark.findOne({
+      where: { imdbID: imdbID, userID: req.user.id },
+    });
+
+    res.json({ bookmarked: !!savedMovie });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 const getSavedMovie = async (req, res) => {
   try {
     const savedMovie = await Bookmark.findAll({ where: { userID: req.user.id } });
     if (savedMovie.length === 0) {
-      return res.status(404).json({ message: "No saved movies!" });
+      return res.status(200).json({ message: "No saved movies!" });
     }
     const movies = savedMovie.map((movie) => ({
       imdbID: movie.imdbID,
@@ -47,4 +83,4 @@ const getSavedMovie = async (req, res) => {
   }
 };
 
-module.exports = { saveMovie, getSavedMovie };
+module.exports = { saveMovie, unsaveMovie, getSavedMovie, checkSavedMovie };

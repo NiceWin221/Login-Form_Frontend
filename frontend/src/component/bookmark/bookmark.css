@@ -4,6 +4,7 @@
   align-items: center;
   gap: 20px;
   padding: 0 20px;
+  width: fit-content;
 }
 .bookmark-headers i {
   font-size: 24px;
@@ -21,4 +22,8 @@
   flex-wrap: wrap;
   gap: 15px;
   margin-top: 20px;
+}
+.saved-movie-message{
+  color: white;
+  font-size: 50px;
 }
