@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, json } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchMoviesDetails } from "../../services/omdbService";
 import axios from "axios";
@@ -21,20 +21,19 @@ const MoviePlay = () => {
       })
       if (active) {
         // Remove movie form db
-        const response = await fetch("http://localhost:3000/unsaveMovie", {
-          method: "post",
+        const response = await axios.delete("http://localhost:3000/unsaveMovie", {
           headers: {
             "Authorization": `Bearer ${responseToken.data.accessToken}`,
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ imdbID: movie.imdbID })
+          data: { imdbID: movie.imdbID }
         })
 
-        if (!response.ok) {
-          throw new Error("Failed to remove movie");
-        } else {
+        if (response.data) {
           console.log("Movie removed from bookmarks");
           setActive(false);
+        } else {
+          throw new Error("Failed to remove movie");
         }
       } else {
         const data = {
@@ -66,68 +65,35 @@ const MoviePlay = () => {
       console.error(err)
     }
   }
-  // setActive(!active)
-  // if (!active) {
-  //   const data = {
-  //     imdbID: movie.imdbID,
-  //     title: movie.Title,
-  //     poster: movie.Poster,
-  //     plot: movie.Plot,
-  //     director: movie.Director,
-  //     writer: movie.Writer
-  //   }
-
-  //   const dataForm = JSON.stringify(data)
-  //   try {
-  //     const responseToken = await axios.get("http://localhost:3000/token", {
-  //       withCredentials: "include"
-  //     })
-  //     const response = await fetch('http://localhost:3000/saveMovie', {
-  //       method: "post",
-  //       headers: {
-  //         "Authorization": `Bearer ${responseToken.data.accessToken}`,
-  //         "Content-Type": "application/json"
-  //       },
-  //       body: dataForm
-  //     })
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to save movie")
-  //     } else {
-  //       const result = await response.json()
-  //       console.log("Movie Saved", result)
-  //     }
-  //   } catch (err) {
-  //     console.error(err)
-  //   }
-  // } else {
-  //   console.log("Movie removed from bookmark!")
-  // }
-  // }
 
   useEffect(() => {
     const fetchData = async () => {
       const details = await fetchMoviesDetails(movieId);
       setMovieDetails(details);
-      try {
-        // Fetch the token
-        const responseToken = await axios.get("http://localhost:3000/token", {
-          withCredentials: "include"
-        });
 
-        // Check if the movie is bookmarked
-        const response = await axios.get("http://localhost:3000/checkSavedMovie", {
-          headers: {
-            "Authorization": `Bearer ${responseToken.data.accessToken}`,
+      try {
+        const responseToken = await axios.get("http://localhost:3000/token", {
+          withCredentials: 'include'
+        })
+        const response = await axios.post("http://localhost:3000/checkSavedMovie",
+          {
+            imdbID: movieId
           },
-          params: { imdbID: movieId }
-        });
+          {
+            headers: {
+              "Authorization": `Bearer ${responseToken.data.accessToken}`,
+              "Content-Type": "application/json"
+            }
+          })
 
         console.log(response)
-        // Set state based on the bookmark status
-        setActive(response.data.bookmarked);
+        if (response.data.saved) {
+          setActive(true)
+        } else {
+          setActive(false)
+        }
       } catch (err) {
-        console.error(err);
+        console.error("Failed to Check Movie", err)
       }
     };
 

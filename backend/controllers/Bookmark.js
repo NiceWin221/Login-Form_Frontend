@@ -34,7 +34,7 @@ const unsaveMovie = async (req, res) => {
     }
 
     const result = await Bookmark.destroy({ where: { imdbID: imdbID, userID: req.user.id } });
-    console.log(result)
+    console.log(result);
     if (result.length === 0) {
       return res.status(200).json({ message: "Movie not found in bookmark" });
     }
@@ -47,7 +47,7 @@ const unsaveMovie = async (req, res) => {
 
 const checkSavedMovie = async (req, res) => {
   try {
-    const { imdbID } = req.querry;
+    const { imdbID } = req.body;
     if (!imdbID) {
       return res.status(400).json({ message: "IMDB ID is required" });
     }
@@ -56,7 +56,11 @@ const checkSavedMovie = async (req, res) => {
       where: { imdbID: imdbID, userID: req.user.id },
     });
 
-    res.json({ bookmarked: !!savedMovie });
+    if (savedMovie) {
+      return res.status(200).json({ saved: true });
+    } else {
+      return res.status(200).json({ saved: false });
+    }
   } catch (err) {
     console.error(err);
   }

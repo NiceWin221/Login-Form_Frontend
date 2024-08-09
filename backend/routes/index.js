@@ -13,7 +13,7 @@ routes.get("/getUser", authenticateToken, getUser);
 routes.delete("/logout", logout);
 routes.post("/saveMovie", authenticateToken, saveMovie);
 routes.get("/getSavedMovie", authenticateToken, getSavedMovie);
-routes.get("/unsaveMovie", authenticateToken, unsaveMovie);
-routes.get("/checkSavedMovie", authenticateToken, checkSavedMovie);
+routes.delete("/unsaveMovie", authenticateToken, unsaveMovie);
+routes.post("/checkSavedMovie", authenticateToken, checkSavedMovie);
 
 module.exports = routes;
