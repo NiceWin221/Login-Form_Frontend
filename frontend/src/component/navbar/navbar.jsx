@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from 'react-toastify';
-import { jwtDecode } from "jwt-decode";
 import { logo } from "../../images/images"
-import axios from "axios"
+import { refreshToken } from "../../utils/refreshToken";
 import Cookie from "js-cookie"
 import "./navbar.css";
 
@@ -11,29 +10,14 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation()
   const [name, setName] = useState("");
-  const [token, setToken] = useState("");
   const currentPath = location.pathname
-
-  const refreshToken = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/token", {
-        withCredentials: "include"
-      })
-      setToken(response.data.accessToken)
-      const decode = jwtDecode(response.data.accessToken);
-      setName(decode.username);
-
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   const handleMovieSaved = (name) => {
     navigate(`/movieSaved/${name}`)
   }
 
   useEffect(() => {
-    refreshToken();
+    refreshToken(setName);
   }, []);
 
   // const logOut = async () => {
@@ -57,7 +41,7 @@ const Navbar = () => {
 
   return (
     <nav>
-      <h1>{name.charAt(0).toUpperCase()}</h1>
+      <h1 onClick={() => { navigate(`/${name}`) }}>{name.charAt(0).toUpperCase()}</h1>
       <img src={logo} alt="logo" />
       <span onClick={() => { navigate("/dashboard") }} className={currentPath === "/dashboard" ? "active" : ""}>
         <i className="fa-solid fa-house"></i>

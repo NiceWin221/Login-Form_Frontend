@@ -8,6 +8,7 @@ import ProtectedRoutes from "./utils/ProtectedRoutes";
 import MovieDownload from "./routes/movieDownload/movieDownload";
 import MoviePlay from "./routes/moviePlay/moviePlay"
 import Bookmark from "./component/bookmark/bookmark";
+import Profile from "./component/profile/profile";
 import "./app.css"
 
 export default function app() {
@@ -21,6 +22,7 @@ export default function app() {
           <Route path="movieDownload/:movieId" element={<MovieDownload />} />
           <Route path="moviePlay/:movieId" element={<MoviePlay />} />
           <Route path="movieSaved/:name" element={<Bookmark />} />
+          <Route path="/:name" element={<Profile />} />
         </Route>
       </Routes>
       <ToastContainer

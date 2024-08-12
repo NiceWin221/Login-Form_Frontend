@@ -49,6 +49,11 @@
   flex-wrap: wrap;
   gap: 15px;
 }
+.random-movies-container p{
+  font-size: 50px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
 .movie-card {
   width: 200px;
   height: 300px;
