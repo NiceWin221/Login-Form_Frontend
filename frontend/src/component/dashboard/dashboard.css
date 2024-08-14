@@ -88,6 +88,9 @@
   padding: 0 15px;
   flex-wrap: wrap;
 }
+.movie-details p{
+  font-size: 15px;
+}
 .movie-details-icon {
   display: flex;
   gap: 5px;

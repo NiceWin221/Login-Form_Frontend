@@ -74,10 +74,14 @@ const logout = async (req, res) => {
 const getUser = async (req, res) => {
   try {
     const user = await User.findOne({ username: req.user.username });
-    if (!user) return res.sendStatus(404);
-    res.json({ username: user.username });
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json({
+      username: user.username,
+      poriflePicture: user.poriflePicture,
+    });
   } catch (err) {
-    if (err) return res.sendStatus(404);
+    console.error("Error fetching user details:", err);
+    res.sendStatus(500);
   }
 };
 

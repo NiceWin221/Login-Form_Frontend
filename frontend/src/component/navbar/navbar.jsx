@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { logo } from "../../images/images"
-import { refreshToken } from "../../utils/refreshToken";
+import { getUser } from "../../utils/getUser"
 import Cookie from "js-cookie"
 import "./navbar.css";
 
@@ -17,7 +17,17 @@ const Navbar = () => {
   }
 
   useEffect(() => {
-    refreshToken(setName);
+    const fetchUser = async () => {
+      try {
+        const userData = await getUser();
+        setName(userData.username); // Set the username in the state
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to fetch user data.");
+      }
+    }
+
+    fetchUser()
   }, []);
 
   // const logOut = async () => {

@@ -9,7 +9,7 @@ const Users = db.define(
     username: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
+      unique: true,
     },
     password: {
       type: DataTypes.STRING,
@@ -17,7 +17,11 @@ const Users = db.define(
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+    },
+    profilePicture: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     refreshToken: {
       type: DataTypes.TEXT,
