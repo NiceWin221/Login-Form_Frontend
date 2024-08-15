@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUser } from "../../utils/getUser";
+import { refreshToken } from "../../utils/refreshToken";
 import axios from "axios";
 import "./profile.css"
 
@@ -17,22 +18,13 @@ const Profile = () => {
     formData.append("username", name)
 
     try {
-      const responseToken = await axios.get("http://localhost:3000/token", {
-        withCredentials: "include"
-      })
-
-      const response = await axios.post("http://localhost:3000/uploads", formData, {
+      const accessToken = await refreshToken()
+      await axios.post("http://localhost:3000/uploads", formData, {
         headers: {
-          "Authorization": `Bearer ${responseToken.data.accessToken}`,
+          "Authorization": `Bearer ${accessToken}`,
           "Content-Type": "multipart/form-data"
         }
       })
-
-      if (response.data.success) {
-        setProfilePicture(URL.createObjectURL(file))
-      } else {
-        console.error("Image upload failed!")
-      }
     } catch (error) {
       console.error("Error uploading the image:", error);
     }
@@ -48,7 +40,12 @@ const Profile = () => {
       try {
         const userData = await getUser()
         setName(userData.username)
-        setProfilePicture(userData.profilePicture)
+
+        if (userData.profilePicture) {
+          const imageUrl = `http://localhost:3000/getImage/${userData.profilePicture}`;
+          setProfilePicture(imageUrl)
+        }
+
       } catch (error) {
         console.error("Failed to fetch data", error)
       }
@@ -61,7 +58,7 @@ const Profile = () => {
     <div className="profile-container">
       <div className="profile-img">
         {profilePicture ?
-          (<img src={profilePicture} alt="Profile" className="profile-picture" />)
+          (<img src={profilePicture} alt="Profile" />)
           :
           (<h1>{name.charAt(0).toUpperCase()}</h1>)}
         <div className="profile-form">
@@ -73,6 +70,9 @@ const Profile = () => {
             <input type="file" name="file" onChange={handleImageUpload} />
           </form>
         </div>
+      </div>
+      <div className="profile-details">
+          
       </div>
     </div>
   )

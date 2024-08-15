@@ -10,11 +10,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: white;
+  background: transparent;
   border: 5px solid #111417;
   border-radius: 50%;
   cursor: pointer;
   position: relative;
+  padding: 5px;
 }
 .profile-img h1 {
   width: 100%;

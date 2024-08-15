@@ -31,7 +31,6 @@ const Bookmark = () => {
           setMessage("No movies saved!")
           setBookmark([])
         } else {
-          console.log(response)
           setBookmark(response.data.movies)
           setMessage('')
         }

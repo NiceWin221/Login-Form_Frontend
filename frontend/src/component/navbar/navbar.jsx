@@ -5,11 +5,13 @@ import { logo } from "../../images/images"
 import { getUser } from "../../utils/getUser"
 import Cookie from "js-cookie"
 import "./navbar.css";
+import axios from "axios";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation()
   const [name, setName] = useState("");
+  const [profilePicture, setProfilePicture] = useState(null)
   const currentPath = location.pathname
 
   const handleMovieSaved = (name) => {
@@ -21,6 +23,8 @@ const Navbar = () => {
       try {
         const userData = await getUser();
         setName(userData.username); // Set the username in the state
+        const imageUrl = `http://localhost:3000/getImage/${userData.profilePicture}`
+        setProfilePicture(imageUrl)
       } catch (err) {
         console.error(err);
         toast.error("Failed to fetch user data.");
@@ -51,7 +55,10 @@ const Navbar = () => {
 
   return (
     <nav>
-      <h1 onClick={() => { navigate(`/${name}`) }}>{name.charAt(0).toUpperCase()}</h1>
+      {profilePicture ?
+        (<img src={profilePicture} alt="Profile" className="navbar-profile-picture" onClick={() => { navigate(`/${name}`) }} />)
+        :
+        (<h1 onClick={() => { navigate(`/${name}`) }}>{name.charAt(0).toUpperCase()}</h1>)}
       <img src={logo} alt="logo" />
       <span onClick={() => { navigate("/dashboard") }} className={currentPath === "/dashboard" ? "active" : ""}>
         <i className="fa-solid fa-house"></i>

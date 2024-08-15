@@ -6,6 +6,7 @@ const cors = require("cors");
 const routes = require("./routes/index");
 const db = require("./config/db");
 const PORT = process.env.PORT || 3000;
+const path = require("path");
 
 // Connecting to Database
 const testDatabaseConnection = async () => {
@@ -31,6 +32,7 @@ app.use(
   })
 );
 
+app.use("/getImage", express.static(path.join(__dirname, "public/uploads")));
 app.use(routes);
 
 app.listen(PORT, () => {
