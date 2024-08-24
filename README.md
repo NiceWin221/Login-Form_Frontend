@@ -9,3 +9,4 @@ Daftar component di login_movie
 - Sidebar.jsx
 - Layout.jsx
 - Footer.jsx
+- jdjjdjdj
