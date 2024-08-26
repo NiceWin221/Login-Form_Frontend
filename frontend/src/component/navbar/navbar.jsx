@@ -34,31 +34,13 @@ const Navbar = () => {
     fetchUser()
   }, []);
 
-  // const logOut = async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:3000/logOut", {
-  //       method: "DELETE",
-  //       credentials: "include"
-  //     })
-
-  //     if (!response.ok) {
-  //       throw new Error("Failed to logout!")
-  //     }
-  //     Cookie.set("statusLogin", "false")
-  //     toast.success("Loggedout!")
-  //     navigate("/")
-  //   } catch (err) {
-  //     console.error(err)
-  //     toast.error("Logout failed!")
-  //   }
-  // }
-
   return (
     <nav>
-      {profilePicture ?
-        (<img src={profilePicture} alt="Profile" className="navbar-profile-picture" onClick={() => { navigate(`/${name}`) }} />)
-        :
-        (<h1 onClick={() => { navigate(`/${name}`) }}>{name.charAt(0).toUpperCase()}</h1>)}
+      {profilePicture ? (
+        <img src={profilePicture} alt="Profile" className="navbar-profile-picture" onClick={() => { navigate(`/${name}`) }} />
+      ) : (
+        <h1 onClick={() => { navigate(`/${name}`) }}>{name.charAt(0).toUpperCase()}</h1>
+      )}
       <img src={logo} alt="logo" />
       <span onClick={() => { navigate("/dashboard") }} className={currentPath === "/dashboard" ? "active" : ""}>
         <i className="fa-solid fa-house"></i>

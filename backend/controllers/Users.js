@@ -78,6 +78,8 @@ const getUser = async (req, res) => {
     res.json({
       username: user.username,
       profilePicture: user.profilePicture,
+      email: user.email,
+      phoneNumber: user.phoneNumber,
     });
   } catch (err) {
     console.error("Error fetching user details:", err);
@@ -85,4 +87,30 @@ const getUser = async (req, res) => {
   }
 };
 
-module.exports = { register, login, logout, getUser };
+const updateUser = async (req, res) => {
+  try {
+    const { username, email, phoneNumber } = req.body;
+    if (!username || !email) {
+      return res.status(400).json({ message: "username and email are required" });
+    }
+
+    const foundUser = await User.findOne({ where: { username: username } });
+    if (!foundUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const result = await foundUser.update({
+      email,
+      phoneNumber,
+    });
+
+    console.log(result);
+
+    res.json({ email: result.email, phoneNumber: result.phoneNumber });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+module.exports = { register, login, logout, getUser, updateUser };

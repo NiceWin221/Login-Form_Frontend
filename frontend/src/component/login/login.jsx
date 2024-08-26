@@ -28,7 +28,6 @@ const Login = () => {
       } else {
         const result = await response.json()
         Cookie.set("statusLogin", "true", { expires: 7 })
-        console.log("Login successfull:", result)
         toast.success("Login success!")
         navigate("/dashboard")
       }

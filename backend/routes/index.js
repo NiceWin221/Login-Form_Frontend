@@ -1,5 +1,5 @@
 const express = require("express");
-const { register, login, logout, getUser } = require("../controllers/Users");
+const { register, login, logout, getUser, updateUser } = require("../controllers/Users");
 const { saveMovie, getSavedMovie, unsaveMovie, checkSavedMovie } = require("../controllers/Bookmark");
 const { uploadImage } = require("../controllers/uploadController");
 const upload = require("../middlewares/multerConfig");
@@ -12,6 +12,7 @@ routes.post("/register", register);
 routes.post("/login", login);
 routes.get("/token", refreshToken);
 routes.get("/getUser", authenticateToken, getUser);
+routes.post("/updateUser", updateUser);
 routes.delete("/logout", logout);
 routes.post("/saveMovie", authenticateToken, saveMovie);
 routes.get("/getSavedMovie", authenticateToken, getSavedMovie);
