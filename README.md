@@ -8,3 +8,4 @@ Daftar component di login_movie
 - Navbar.jsx
 - Sidebar.jsx
 - Layout.jsx
+- Footer.jsx
