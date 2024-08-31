@@ -13,7 +13,7 @@ const refreshToken = async (req, res) => {
       if (err) return res.sendStatus(403); // Forbidden if token verification fails
       const username = decoded.username;
       const id = decoded.id;
-      const accessToken = jwt.sign({ username, id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "30s" });
+      const accessToken = jwt.sign({ username, id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "1h" });
       res.json({ accessToken });
     });
   } catch (err) {

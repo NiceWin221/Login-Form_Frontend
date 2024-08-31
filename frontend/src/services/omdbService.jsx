@@ -2,8 +2,18 @@ import axios from "axios"
 const API_KEY = 'dca61bcc';
 const BASE_URL = `http://www.omdbapi.com/?apikey=${API_KEY}`;
 
+export const loadMovies = async (query) => {
+  try {
+    const response = await axios.get(`${BASE_URL}&s=${query}`)
+    return response.data.Search || []
+  } catch (err) {
+    console.error(err)
+    return []
+  }
+}
+
 // Fetch movies based on a specific query and page
-const fetchMovies = async (query, page) => {
+export const fetchMovies = async (query, page) => {
   try {
     const response = await axios.get(`${BASE_URL}&s=${query}&page=${page}`)
 
