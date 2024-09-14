@@ -1,7 +1,9 @@
 # about-login_movie
-Daftar component di login_movie
---
-*Berikut adalah component di login_movie*
+
+## Daftar component di login_movie
+
+_Berikut adalah component di login_movie_
+
 - Login.jsx
 - Register.jsx
 - Dashboard.jsx

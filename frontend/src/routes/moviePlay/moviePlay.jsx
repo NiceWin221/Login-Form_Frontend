@@ -1,12 +1,14 @@
 import { useParams, useNavigate, json } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchMoviesDetails } from "../../services/omdbService";
+import RickRoll from "../../videos/rick-roll.mp4"
 import axios from "axios";
 import "./moviePlay.css"
 
 const MoviePlay = () => {
   const { movieId } = useParams()
   const [active, setActive] = useState(false)
+  const [play, setPlay] = useState(false)
   const [movieDetails, setMovieDetails] = useState(null)
   const navigate = useNavigate()
 
@@ -117,6 +119,16 @@ const MoviePlay = () => {
                   </span>
                 </div>
                 <div className="movie-play-body">
+                  {play ? (
+                    <video
+                      src={RickRoll}
+                      controls
+                      autoPlay
+                    >
+                    </video>
+                  ) : (
+                    <i className="fa-solid fa-play" onClick={() => { setPlay(true) }}></i>
+                  )}
                   <img src={movieDetails.Poster} alt={movieDetails.Title} />
                 </div>
                 <div className="movie-play-footer">
