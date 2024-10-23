@@ -50,9 +50,12 @@ const Navbar = () => {
     const fetchUser = async () => {
       try {
         const userData = await getUser();
-        setName(userData.username); // Set the username in the state
-        const imageUrl = `http://localhost:3000/getImage/${userData.profilePicture}`
-        setProfilePicture(imageUrl)
+        setName(userData.username);
+        if (userData.profilePicture !== null) {
+          const imageUrl = `http://localhost:3000/getImage/${userData.profilePicture}`
+          setProfilePicture(imageUrl)
+        }
+        setProfilePicture(null)
       } catch (err) {
         console.error(err);
         toast.error("Failed to fetch user data.");
@@ -85,7 +88,7 @@ const Navbar = () => {
 
   return (
     <nav>
-      {profilePicture ? (
+      {profilePicture !== null ? (
         <img src={profilePicture} alt="Profile" className="navbar-profile-picture" onClick={() => { navigate(`/${name}`) }} />
       ) : (
         <h1 onClick={() => { navigate(`/${name}`) }}>{name.charAt(0).toUpperCase()}</h1>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { refreshToken } from "../../utils/refreshToken";
 import axios from "axios";
 import "./bookmark.css";
 
@@ -20,19 +19,20 @@ const Bookmark = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const accessToken = await refreshToken()
-        const response = await axios.get("http://localhost:3000/getSavedMovie", {
+        const accessToken = sessionStorage.getItem("accessToken")
+        const response = await axios.get("http://localhost:3000/movies", {
           withCredentials: "include",
           headers: {
             "Authorization": `Bearer ${accessToken}`,
           }
         });
-        if (response.data.message) {
+
+        if (response.data.status === "success") {
+          setBookmark(response.data.movies)
+          setMessage(false)
+        } else {
           setMessage("No movies saved!")
           setBookmark([])
-        } else {
-          setBookmark(response.data.movies)
-          setMessage('')
         }
       } catch (err) {
         console.error(err);

@@ -18,25 +18,21 @@ const MoviePlay = () => {
 
   const handleSaveMovie = async (movie) => {
     try {
-      const responseToken = await axios.get("http://localhost:3000/token", {
-        withCredentials: "include"
-      })
+      const accessToken = sessionStorage.getItem("accessToken")
       if (active) {
-        // Remove movie form db
-        const response = await axios.delete("http://localhost:3000/unsaveMovie", {
+        const response = await axios.delete(`http://localhost:3000/movies/${movie.imdbID}`, {
           headers: {
-            "Authorization": `Bearer ${responseToken.data.accessToken}`,
+            "Authorization": `Bearer ${accessToken}`,
             "Content-Type": "application/json"
           },
-          data: { imdbID: movie.imdbID }
         })
 
         if (response.data) {
-          console.log("Movie removed from bookmarks");
           setActive(false);
         } else {
           throw new Error("Failed to remove movie");
         }
+
       } else {
         const data = {
           imdbID: movie.imdbID,
@@ -47,20 +43,17 @@ const MoviePlay = () => {
           writer: movie.Writer
         };
 
-        const response = await fetch('http://localhost:3000/saveMovie', {
-          method: "post",
+        const response = await axios.post('http://localhost:3000/movies', data, {
           headers: {
-            "Authorization": `Bearer ${responseToken.data.accessToken}`,
+            "Authorization": `Bearer ${accessToken}`,
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(data)
         });
 
-        if (!response.ok) {
-          throw new Error("Failed to save movie");
-        } else {
-          console.log("Movie saved");
+        if (response.data) {
           setActive(true);
+        } else {
+          throw new Error("Failed to save movie");
         }
       }
     } catch (err) {
@@ -74,21 +67,15 @@ const MoviePlay = () => {
       setMovieDetails(details);
 
       try {
-        const responseToken = await axios.get("http://localhost:3000/token", {
-          withCredentials: 'include'
-        })
-        const response = await axios.post("http://localhost:3000/checkSavedMovie",
-          {
-            imdbID: movieId
-          },
+        const accessToken = sessionStorage.getItem("accessToken")
+        const response = await axios.get(`http://localhost:3000/movies/${movieId}`,
           {
             headers: {
-              "Authorization": `Bearer ${responseToken.data.accessToken}`,
+              "Authorization": `Bearer ${accessToken}`,
               "Content-Type": "application/json"
             }
           })
 
-        console.log(response)
         if (response.data.saved) {
           setActive(true)
         } else {

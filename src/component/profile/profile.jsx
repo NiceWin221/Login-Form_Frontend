@@ -50,12 +50,11 @@ const Profile = () => {
         setEmail(userData.email)
         setPhoneNumber(userData.phoneNumber)
 
-        if (userData.profilePicture) {
+        if (userData.profilePicture !== null) {
           const imageUrl = `http://localhost:3000/getImage/${userData.profilePicture}`;
           setProfilePicture(imageUrl)
         } else {
           setProfilePicture(null);
-          throw new Error("Failed to get Image")
         }
 
       } catch (error) {

@@ -11,7 +11,7 @@ const Login = () => {
 
   const sendLogin = async (e) => {
     e.preventDefault()
-    const data = { username: username, password: password }
+    const data = { username, password }
     const dataForm = JSON.stringify(data)
 
     try {
@@ -27,6 +27,7 @@ const Login = () => {
         toast.error("Login failed!")
       } else {
         const result = await response.json()
+        sessionStorage.setItem("accessToken", result.data.accessToken)
         Cookie.set("statusLogin", "true", { expires: 7 })
         toast.success("Login success!")
         navigate("/dashboard")
