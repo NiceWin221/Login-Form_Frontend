@@ -37,34 +37,28 @@ export const fetchMoviesDetails = async (imdbId) => {
 // Get a random selection of movies
 export const getRandomMovies = async () => {
   try {
-    const searchTerm = 'animation'; // Use a more specific query
-    const movies = [];
+    const searchTerm = "animation";
 
-    // Fetch the first page with a specific query
-    const pageMovies = await fetchMovies(searchTerm, 1);
-    movies.push(...pageMovies);
+    // Fetch both pages in parallel
+    const [page1, page2] = await Promise.all([
+      fetchMovies(searchTerm, 1),
+      fetchMovies(searchTerm, 2),
+    ]);
 
-    // If you need more results, fetch additional pages
-    if (movies.length < 12) {
-      const additionalMovies = await fetchMovies(searchTerm, 2);
-      movies.push(...additionalMovies);
-    }
+    // Combine results & shuffle
+    const movies = [...page1, ...page2].sort(() => 0.5 - Math.random());
 
-    // Shuffle and get the first 12 movies
-    const shuffledMovies = movies.sort(() => 0.5 - Math.random());
-    const randomMovies = shuffledMovies.slice(0, 12);
+    // Take only 12 movies
+    const selectedMovies = movies.slice(0, 12);
 
-    // Fetch detailed information for each movie
-    const movieDetailsPromises = randomMovies.map(async (movie) => {
-      const movieResponse = await axios.get(`${BASE_URL}&i=${movie.imdbID}`);
-      return movieResponse.data
-    });
+    // Fetch details in parallel
+    const moviesDetails = await Promise.all(
+      selectedMovies.map((movie) => fetchMoviesDetails(movie.imdbID))
+    );
 
-    const moviesDetails = await Promise.all(movieDetailsPromises);
-
-    return moviesDetails;
+    return moviesDetails.filter((details) => details !== null); // Remove failed fetches
   } catch (error) {
-    console.error('Error fetching random movies:', error);
+    console.error("Error fetching random movies:", error);
     throw error;
   }
 };

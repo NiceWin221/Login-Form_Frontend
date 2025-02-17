@@ -123,7 +123,7 @@ const Profile = () => {
 
   const logOut = async () => {
     try {
-      const response = await fetch("http://localhost:3000/logOut", {
+      const response = await fetch("http://localhost:3000/logout", {
         method: "DELETE",
         credentials: "include"
       })

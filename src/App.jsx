@@ -15,14 +15,14 @@ export default function app() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route element={<ProtectedRoutes />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="movieDownload/:movieId" element={<MovieDownload />} />
-          <Route path="moviePlay/:movieId" element={<MoviePlay />} />
-          <Route path="movieSaved/:name" element={<Bookmark />} />
-          <Route path="/:name" element={<Profile />} />
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/movieDownload/:movieId" element={<MovieDownload />} />
+          <Route path="/moviePlay/:movieId" element={<MoviePlay />} />
+          <Route path="/movieSaved/:name" element={<Bookmark />} />
+          <Route path="/user/:name" element={<Profile />} />
         </Route>
       </Routes>
       <ToastContainer

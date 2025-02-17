@@ -10,7 +10,7 @@ import axios from "axios";
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation()
-  const [name, setName] = useState("");
+  const [name, setName] = useState("Guest");
   const [profilePicture, setProfilePicture] = useState(null)
   const currentPath = location.pathname
 
@@ -46,24 +46,23 @@ const Navbar = () => {
     transition: inputActive ? "top 0.3s ease-in" : ""
   }
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userData = await getUser();
-        setName(userData.username);
-        if (userData.profilePicture !== null) {
-          const imageUrl = `http://localhost:3000/getImage/${userData.profilePicture}`
-          setProfilePicture(imageUrl)
-        }
-        setProfilePicture(null)
-      } catch (err) {
-        console.error(err);
-        toast.error("Failed to fetch user data.");
-      }
-    }
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const userData = await getUser();
+  //       setName(userData.username);
+  //       if (userData.profilePicture !== null) {
+  //         const imageUrl = `http://localhost:3000/getImage/${userData.profilePicture}`
+  //         setProfilePicture(imageUrl)
+  //       }
+  //       setProfilePicture(null)
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   }
 
-    fetchUser()
-  }, []);
+  //   fetchUser()
+  // }, []);
 
   useEffect(() => {
     const searchMovies = async () => {
@@ -89,12 +88,12 @@ const Navbar = () => {
   return (
     <nav>
       {profilePicture !== null ? (
-        <img src={profilePicture} alt="Profile" className="navbar-profile-picture" onClick={() => { navigate(`/${name}`) }} />
+        <img src={profilePicture} alt="Profile" className="navbar-profile-picture" onClick={() => { navigate(`/user/${name}`) }} />
       ) : (
-        <h1 onClick={() => { navigate(`/${name}`) }}>{name.charAt(0).toUpperCase()}</h1>
+        <h1>{name.charAt(0).toUpperCase()}</h1>
       )}
       <img src={logo} alt="logo" />
-      <span onClick={() => { navigate("/dashboard") }} className={currentPath === "/dashboard" ? "active" : ""}>
+      <span onClick={() => { navigate("/") }} className={currentPath === "/" ? "active" : ""}>
         <i className="fa-solid fa-house"></i>
         <p>Home</p>
       </span>
@@ -106,7 +105,7 @@ const Navbar = () => {
         <i className="fa-solid fa-tv"></i>
         TV Shows
       </span>
-      <span onClick={() => { handleMovieSaved(name) }} className={currentPath === `/movieSaved/${name}` ? "active" : ""}>
+      <span className={currentPath === `/movieSaved/${name}` ? "active" : ""}>
         {currentPath === `/movieSaved/${name}` ? (<i className="fa-solid fa-bookmark"></i>) : (<i className="fa-regular fa-bookmark"></i>)}
         <p>Bookmark</p>
       </span>
